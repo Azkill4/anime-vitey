@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全模块资源导航 | 动漫·漫画·音乐·小说·影视·网盘·服务器·邮箱·AI·搜索引擎</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --anime-color: #ff6b8b;
+            --comic-color: #36b5b0;
+            --music-color: #6c5ce7;
+            --novel-color: #f0932b;
+            --video-color: #ff4757;
+            --cloud-color: #1e90ff;
+            --server-color: #10b981;
+            --email-color: #8b5cf6;
+            --ai-color: #8e44ad;
+            --search-color: #3498db;
+            --bg-color: #0f172a;
+            --card-color: #1e293b;
+            --text-color: #e2e8f0;
+            --border-radius: 14px;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: var(--gradient-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 50px 0 40px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                var(--anime-color), 
+                var(--comic-color), 
+                var(--music-color), 
+                var(--novel-color),
+                var(--video-color),
+                var(--cloud-color),
+                var(--server-color),
+                var(--email-color),
+                var(--ai-color),
+                var(--search-color));
+            z-index: 1;
+        }
+        
+        .header-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.2) 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            z-index: 0;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            background: linear-gradient(90deg, 
+                var(--anime-color), 
+                var(--comic-color), 
+                var(--music-color), 
+                var(--novel-color),
+                var(--video-color),
+                var(--cloud-color),
+                var(--server-color),
+                var(--email-color),
+                var(--ai-color),
+                var(--search-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .update-info {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .update-info i {
+            color: var(--server-color);
+            margin-right: 8px;
+        }
+        
+        /* 搜索框样式 */
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 18px 25px 18px 60px;
+            border-radius: var(--border-radius);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            outline: none;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .search-box input:focus {
+            border-color: var(--music-color);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.3);
+            background: rgba(30, 41, 59, 0.9);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.3rem;
+        }
+        
+        /* 快速导航样式 */
+        .quick-nav {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .quick-nav h2 {
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            color: #e2e8f0;
+        }
+        
+        .quick-nav h2 i {
+            margin-right: 12px;
+            color: var(--music-color);
+            background: rgba(108, 92, 231, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+        }
+        
+        .quick-btn {
+            padding: 18px;
+            border-radius: var(--border-radius);
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quick-btn i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .quick-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .quick-btn:hover::before {
+            left: 100%;
+        }
+        
+        .anime-btn {
+            background: linear-gradient(135deg, var(--anime-color), #ff4757);
+        }
+        
+        .comic-btn {
+            background: linear-gradient(135deg, var(--comic-color), #1dd1a1);
+        }
+        
+        .music-btn {
+            background: linear-gradient(135deg, var(--music-color), #a29bfe);
+        }
+        
+        .novel-btn {
+            background: linear-gradient(135deg, var(--novel-color), #ff9f43);
+        }
+        
+        .video-btn {
+            background: linear-gradient(135deg, var(--video-color), #ff3838);
+        }
+        
+        .cloud-btn {
+            background: linear-gradient(135deg, var(--cloud-color), #3742fa);
+        }
+        
+        .server-btn {
+            background: linear-gradient(135deg, var(--server-color), #059669);
+        }
+        
+        .email-btn {
+            background: linear-gradient(135deg, var(--email-color), #7c3aed);
+        }
+        
+        .ai-btn {
+            background: linear-gradient(135deg, var(--ai-color), #9b59b6);
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, var(--search-color), #2980b9);
+        }
+        
+        .quick-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 收藏站点轮播样式 */
+        .favorite-section {
+            margin-bottom: 50px;
+        }
+        
+        .favorite-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            color: #e2e8f0;
+        }
+        
+        .favorite-section h2 i {
+            margin-right: 12px;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            padding: 20px;
+        }
+        
+        .favorite-item {
+            flex: 0 0 33.333%;
+            padding: 0 10px;
+            transition: var(--transition);
+        }
+        
+        .favorite-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .favorite-card:hover {
+            background: rgba(45, 55, 72, 0.9);
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow);
+        }
+        
+        .favorite-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .server-icon {
+            background: linear-gradient(135deg, var(--server-color), #059669);
+        }
+        
+        .email-icon {
+            background: linear-gradient(135deg, var(--email-color), #7c3aed);
+        }
+        
+        .anime-icon {
+            background: linear-gradient(135deg, var(--anime-color), #ff4757);
+        }
+        
+        .cloud-icon {
+            background: linear-gradient(135deg, var(--cloud-color), #3742fa);
+        }
+        
+        .ai-icon {
+            background: linear-gradient(135deg, var(--ai-color), #9b59b6);
+        }
+        
+        .search-icon {
+            background: linear-gradient(135deg, var(--search-color), #2980b9);
+        }
+        
+        .favorite-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+        
+        .favorite-info p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .carousel-dot.active {
+            background-color: var(--music-color);
+            transform: scale(1.2);
+        }
+        
+        /* 模块容器样式 */
+        .modules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .module-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            height: 100%;
+            border-left: 6px solid;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .anime-card {
+            border-left-color: var(--anime-color);
+        }
+        
+        .comic-card {
+            border-left-color: var(--comic-color);
+        }
+        
+        .music-card {
+            border-left-color: var(--music-color);
+        }
+        
+        .novel-card {
+            border-left-color: var(--novel-color);
+        }
+        
+        .video-card {
+            border-left-color: var(--video-color);
+        }
+        
+        .cloud-card {
+            border-left-color: var(--cloud-color);
+        }
+        
+        .server-card {
+            border-left-color: var(--server-color);
+        }
+        
+        .email-card {
+            border-left-color: var(--email-color);
+        }
+        
+        .ai-card {
+            border-left-color: var(--ai-color);
+        }
+        
+        .search-card {
+            border-left-color: var(--search-color);
+        }
+        
+        .module-header {
+            padding: 30px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .module-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .anime-icon {
+            background: linear-gradient(135deg, var(--anime-color), #ff4757);
+        }
+        
+        .comic-icon {
+            background: linear-gradient(135deg, var(--comic-color), #1dd1a1);
+        }
+        
+        .music-icon {
+            background: linear-gradient(135deg, var(--music-color), #a29bfe);
+        }
+        
+        .novel-icon {
+            background: linear-gradient(135deg, var(--novel-color), #ff9f43);
+        }
+        
+        .video-icon {
+            background: linear-gradient(135deg, var(--video-color), #ff3838);
+        }
+        
+        .cloud-icon {
+            background: linear-gradient(135deg, var(--cloud-color), #3742fa);
+        }
+        
+        .server-icon {
+            background: linear-gradient(135deg, var(--server-color), #059669);
+        }
+        
+        .email-icon {
+            background: linear-gradient(135deg, var(--email-color), #7c3aed);
+        }
+        
+        .ai-icon {
+            background: linear-gradient(135deg, var(--ai-color), #9b59b6);
+        }
+        
+        .search-icon {
+            background: linear-gradient(135deg, var(--search-color), #2980b9);
+        }
+        
+        .module-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        
+        .module-content {
+            padding: 0 25px 30px;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        
+        .sub-module {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sub-module:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .sub-module-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #e2e8f0;
+        }
+        
+        .sub-module-title i {
+            margin-right: 10px;
+            font-size: 1rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .anime-links .sub-module-title i {
+            color: var(--anime-color);
+        }
+        
+        .comic-links .sub-module-title i {
+            color: var(--comic-color);
+        }
+        
+        .music-links .sub-module-title i {
+            color: var(--music-color);
+        }
+        
+        .novel-links .sub-module-title i {
+            color: var(--novel-color);
+        }
+        
+        .video-links .sub-module-title i {
+            color: var(--video-color);
+        }
+        
+        .cloud-links .sub-module-title i {
+            color: var(--cloud-color);
+        }
+        
+        .server-links .sub-module-title i {
+            color: var(--server-color);
+        }
+        
+        .email-links .sub-module-title i {
+            color: var(--email-color);
+        }
+        
+        .ai-links .sub-module-title i {
+            color: var(--ai-color);
+        }
+        
+        .search-links .sub-module-title i {
+            color: var(--search-color);
+        }
+        
+        .resource-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-color);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .resource-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .resource-link:hover::before {
+            left: 100%;
+        }
+        
+        .resource-link:hover {
+            transform: translateY(-3px);
+            border-color: currentColor;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .anime-link:hover {
+            background-color: var(--anime-color);
+            color: white;
+        }
+        
+        .comic-link:hover {
+            background-color: var(--comic-color);
+            color: white;
+        }
+        
+        .music-link:hover {
+            background-color: var(--music-color);
+            color: white;
+        }
+        
+        .novel-link:hover {
+            background-color: var(--novel-color);
+            color: white;
+        }
+        
+        .video-link:hover {
+            background-color: var(--video-color);
+            color: white;
+        }
+        
+        .cloud-link:hover {
+            background-color: var(--cloud-color);
+            color: white;
+        }
+        
+        .server-link:hover {
+            background-color: var(--server-color);
+            color: white;
+        }
+        
+        .email-link:hover {
+            background-color: var(--email-color);
+            color: white;
+        }
+        
+        .ai-link:hover {
+            background-color: var(--ai-color);
+            color: white;
+        }
+        
+        .search-link:hover {
+            background-color: var(--search-color);
+            color: white;
+        }
+        
+        /* 模块标签样式 */
+        .module-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tag-anime {
+            background-color: rgba(255, 107, 139, 0.2);
+            color: var(--anime-color);
+        }
+        
+        .tag-comic {
+            background-color: rgba(54, 181, 176, 0.2);
+            color: var(--comic-color);
+        }
+        
+        .tag-music {
+            background-color: rgba(108, 92, 231, 0.2);
+            color: var(--music-color);
+        }
+        
+        .tag-novel {
+            background-color: rgba(240, 147, 43, 0.2);
+            color: var(--novel-color);
+        }
+        
+        .tag-video {
+            background-color: rgba(255, 71, 87, 0.2);
+            color: var(--video-color);
+        }
+        
+        .tag-cloud {
+            background-color: rgba(30, 144, 255, 0.2);
+            color: var(--cloud-color);
+        }
+        
+        .tag-server {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--server-color);
+        }
+        
+        .tag-email {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: var(--email-color);
+        }
+        
+        .tag-ai {
+            background-color: rgba(142, 68, 173, 0.2);
+            color: var(--ai-color);
+        }
+        
+        .tag-search {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--search-color);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--cloud-color), #3742fa);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #1c7ed6, #228be6);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1400px) {
+            .modules-container {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+            
+            .favorite-item {
+                flex: 0 0 50%;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .modules-container {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .modules-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .quick-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .favorite-item {
+                flex: 0 0 50%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .modules-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .favorite-item {
+                flex: 0 0 100%;
+            }
+            
+            .module-header {
+                padding: 25px 20px;
+            }
+            
+            .module-content {
+                max-height: 350px;
+            }
+            
+            .back-to-top {
+                bottom: 25px;
+                right: 25px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .module-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.7rem;
+            }
+            
+            .quick-nav, .module-card {
+                padding: 20px;
+            }
+            
+            .resource-link {
+                padding: 8px 14px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 自定义滚动条 */
+        .module-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .module-content::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+        }
+        
+        .module-content::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 10px;
+        }
+        
+        .module-content::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        
+        /* 通知提示 */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--server-color), #059669);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            transition: transform 0.5s ease;
+            display: flex;
+            align-items: center;
+            max-width: 90%;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--music-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 添加粒子背景效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- 加载动画 -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <header>
+        <div class="header-glow"></div>
+        <div class="container">
+            <h1>全模块资源导航</h1>
+            <p class="tagline">一站式访问动漫、漫画、音乐、小说、影视、网盘、服务器、邮箱、AI工具、搜索引擎等优质资源</p>
+            
+            <div class="update-info">
+                <i class="fas fa-calendar-alt"></i> 最后更新：2026年1月11日 | 新增AI与搜索引擎模块
+            </div>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索资源站点或内容... (支持中文/英文)">
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 快速导航 -->
+        <section class="quick-nav fade-in">
+            <h2><i class="fas fa-bolt"></i> 快速导航</h2>
+            <div class="quick-buttons">
+                <a href="#anime" class="quick-btn anime-btn"><i class="fas fa-play-circle"></i> 动漫专区</a>
+                <a href="#comic" class="quick-btn comic-btn"><i class="fas fa-book-open"></i> 漫画专区</a>
+                <a href="#music" class="quick-btn music-btn"><i class="fas fa-music"></i> 音乐专区</a>
+                <a href="#novel" class="quick-btn novel-btn"><i class="fas fa-book"></i> 小说专区</a>
+                <a href="#video" class="quick-btn video-btn"><i class="fas fa-video"></i> 影视直播</a>
+                <a href="#cloud" class="quick-btn cloud-btn"><i class="fas fa-cloud"></i> 网盘存储</a>
+                <a href="#server" class="quick-btn server-btn"><i class="fas fa-server"></i> 服务器</a>
+                <a href="#email" class="quick-btn email-btn"><i class="fas fa-envelope"></i> 邮箱服务</a>
+                <a href="#ai" class="quick-btn ai-btn"><i class="fas fa-robot"></i> AI工具</a>
+                <a href="#search" class="quick-btn search-btn"><i class="fas fa-search"></i> 搜索引擎</a>
+            </div>
+        </section>
+        
+        <!-- 收藏站点轮播 -->
+        <section class="favorite-section fade-in">
+            <h2><i class="fas fa-star"></i> 推荐收藏站点</h2>
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- 轮播项将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            <div class="carousel-nav" id="carouselNav">
+                <!-- 轮播指示点将通过JavaScript动态生成 -->
+            </div>
+        </section>
+        
+        <!-- 模块容器 -->
+        <div class="modules-container">
+            <!-- 动漫模块 -->
+            <section id="anime" class="module-card anime-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">动漫专区 <span class="module-tag tag-anime">动画</span></h2>
+                        <p>国内外优质动漫资源站点</p>
+                    </div>
+                    <div class="module-icon anime-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                </div>
+                <div class="module-content anime-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-asia"></i> 国内动漫</div>
+                        <div class="resource-links">
+                            <a href="https://www.acfun.cn/" target="_blank" class="resource-link anime-link">AcFun</a>
+                            <a href="https://www.bilibili.com/" target="_blank" class="resource-link anime-link">哔哩哔哩</a>     
+                            <a href="https://www.omofuna.com/" target="_blank" class="resource-link anime-link">OmoFun</a>   
+                            <a href="https://www.mandao.me/" target="_blank" class="resource-link anime-link">漫岛</a>    
+                            <a href="https://www.baimaodm.com/" target="_blank" class="resource-link anime-link">黑猫动漫</a>
+                            <a href="https://www.nyafun.org/" target="_blank" class="resource-link anime-link">NyaaFun</a>      
+                            <a href="https://vdm10.com/" target="_blank" class="resource-link anime-link">风车动漫</a>   
+                            <a href="https://www.ntdm8.com/" target="_blank" class="resource-link anime-link">NT动漫</a>   
+                            <a href="https://zhuiyingmao6.com/" target="_blank" class="resource-link anime-link">追影猫</a>
+                            <a href="https://m.mubai.link/index" target="_blank" class="resource-link anime-link">Mubai</a>
+                            <a href="https://www.fqdm.cc/" target="_blank" class="resource-link anime-link">番茄动漫</a>
+                            <a href="https://cn.xgcartoon.com/" target="_blank" class="resource-link anime-link">西瓜动漫</a>
+                            <a href="https://jciyuan.com/" target="_blank" class="resource-link anime-link">囧次元</a>
+                            <a href="https://easybangumi.org/" target="_blank" class="resource-link anime-link">EasyBangumi</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-americas"></i> 国外动漫</div>
+                        <div class="resource-links">
+                            <a href="https://www.agedm.io/" target="_blank" class="resource-link anime-link">AgedM</a>
+                            <a href="https://www.mutean.com/" target="_blank" class="resource-link anime-link">mutean</a>
+                            <a href="https://omofun.in/" target="_blank" class="resource-link anime-link">OmoFun</a>
+                            <a href="https://www.gugu3.com/" target="_blank" class="resource-link anime-link">Gugu3</a>
+                            <a href="https://www.maghh.com/" target="_blank" class="resource-link anime-link">Maghh</a>
+                            <a href="https://acgfta.com/" target="_blank" class="resource-link anime-link">ACG-FTA</a>
+                            <a href="https://dm.xifanacg.com/" target="_blank" class="resource-link anime-link">XifanACG</a>
+                            <a href="https://www.huazidm.com/" target="_blank" class="resource-link anime-link">花子动漫</a>
+                            <a href="https://www.cycani.org/" target="_blank" class="resource-link anime-link">次元城动画</a>
+                            <a href="https://www.jzacg.com/" target="_blank" class="resource-link anime-link">JZACG</a>
+                            <a href="https://www.crunchyroll.com/" target="_blank" class="resource-link anime-link">Crunchyroll</a>
+                            <a href="https://www.funimation.com/" target="_blank" class="resource-link anime-link">Funimation</a>
+                            <a href="https://www.netflix.com/" target="_blank" class="resource-link anime-link">Netflix</a>
+                            <a href="https://www.hidive.com/" target="_blank" class="resource-link anime-link">HIDIVE</a>
+                            <a href="https://www.5dm.link/" target="_blank" class="resource-link anime-link">5DM</a>
+                            <a href="https://ww2.aniwatch.fit/" target="_blank" class="resource-link anime-link">AniWatch</a>
+                            <a href="https://www.oneghg.com/" target="_blank" class="resource-link anime-link">OneGHG</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-download"></i> 动漫下载</div>
+                        <div class="resource-links">
+                            <a href="https://nyaa.si/" target="_blank" class="resource-link anime-link">Nyaa</a>
+                            <a href="https://anidl.org/" target="_blank" class="resource-link anime-link">AniDL</a>
+                            <a href="https://www.animebytes.tv/" target="_blank" class="resource-link anime-link">AnimeBytes</a>
+                            <a href="https://bakabt.me/" target="_blank" class="resource-link anime-link">BakaBT</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-info-circle"></i> 动漫资讯</div>
+                        <div class="resource-links">
+                            <a href="https://myanimelist.net/" target="_blank" class="resource-link anime-link">MyAnimeList</a>
+                            <a href="https://anidb.net/" target="_blank" class="resource-link anime-link">AniDB</a>
+                            <a href="https://www.animenewsnetwork.com/" target="_blank" class="resource-link anime-link">ANN</a>
+                            <a href="https://anitrendz.com/" target="_blank" class="resource-link anime-link">AniTrendz</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 漫画模块 -->
+            <section id="comic" class="module-card comic-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">漫画专区 <span class="module-tag tag-comic">图像</span></h2>
+                        <p>海量漫画在线阅读与下载</p>
+                    </div>
+                    <div class="module-icon comic-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                </div>
+                <div class="module-content comic-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-book"></i> 在线阅读</div>
+                        <div class="resource-links">
+                            <a href="https://ac.qq.com/" target="_blank" class="resource-link comic-link">腾讯动漫</a>
+                            <a href="https://manga.bilibili.com/" target="_blank" class="resource-link comic-link">哔哩哔哩漫画</a>
+                            <a href="https://www.baozimh.com/" target="_blank" class="resource-link comic-link">包子漫画</a>
+                            <a href="https://qimanwu.org/" target="_blank" class="resource-link comic-link">漫画屋</a>
+                            <a href="https://www.dm5.com/" target="_blank" class="resource-link comic-link">动漫5</a>
+                            <a href="https://www.u17.com/" target="_blank" class="resource-link comic-link">有妖气</a>
+                            <a href="https://www.dongmanmanhua.cn/" target="_blank" class="resource-link comic-link">咚漫</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe"></i> 日漫资源</div>
+                        <div class="resource-links">
+                            <a href="https://www.mangabz.com/" target="_blank" class="resource-link comic-link">Mangabz</a>
+                            <a href="https://mangadex.org/" target="_blank" class="resource-link comic-link">MangaDex</a>
+                            <a href="https://mangakakalot.com/" target="_blank" class="resource-link comic-link">MangaKakalot</a>
+                            <a href="https://comic-walker.com/" target="_blank" class="resource-link comic-link">ComicWalker</a>
+                            <a href="https://tonarinoyj.jp/" target="_blank" class="resource-link comic-link">少年Jump+</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-download"></i> 漫画下载</div>
+                        <div class="resource-links">
+                            <a href="https://nyaa.si/" target="_blank" class="resource-link comic-link">Nyaa(漫画区)</a>
+                            <a href="https://mangasee123.com/" target="_blank" class="resource-link comic-link">MangaSee</a>
+                            <a href="https://mangalife.org/" target="_blank" class="resource-link comic-link">MangaLife</a>
+                            <a href="https://mangatoto.com/" target="_blank" class="resource-link comic-link">MangaToto</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-palette"></i> 原创漫画</div>
+                        <div class="resource-links">
+                            <a href="https://www.pixiv.net/" target="_blank" class="resource-link comic-link">Pixiv</a>
+                            <a href="https://www.deviantart.com/" target="_blank" class="resource-link comic-link">DeviantArt</a>
+                            <a href="https://www.webtoons.com/" target="_blank" class="resource-link comic-link">Webtoon</a>
+                            <a href="https://tapas.io/" target="_blank" class="resource-link comic-link">Tapas</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 音乐模块 -->
+            <section id="music" class="module-card music-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">音乐专区 <span class="module-tag tag-music">音频</span></h2>
+                        <p>高品质音乐与音频资源</p>
+                    </div>
+                    <div class="module-icon music-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                </div>
+                <div class="module-content music-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-headphones"></i> 在线音乐</div>
+                        <div class="resource-links">
+                            <a href="https://music.163.com/" target="_blank" class="resource-link music-link">网易云音乐</a>
+                            <a href="https://www.qqmusic.com/" target="_blank" class="resource-link music-link">QQ音乐</a>
+                            <a href="https://www.kugou.com/" target="_blank" class="resource-link music-link">酷狗音乐</a>
+                            <a href="https://www.kuwo.cn/" target="_blank" class="resource-link music-link">酷我音乐</a>
+                            <a href="https://www.xiami.com/" target="_blank" class="resource-link music-link">虾米音乐</a>
+                            <a href="https://www.sqmusic.com/" target="_blank" class="resource-link music-link">汽水音乐</a>                
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-compact-disc"></i> 无损音乐</div>
+                        <div class="resource-links">
+                            <a href="https://www.hdtracks.com/" target="_blank" class="resource-link music-link">HDtracks</a>
+                            <a href="https://www.qobuz.com/" target="_blank" class="resource-link music-link">Qobuz</a>
+                            <a href="https://tidal.com/" target="_blank" class="resource-link music-link">Tidal</a>
+                            <a href="https://www.deezer.com/" target="_blank" class="resource-link music-link">Deezer</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-video"></i> 动漫音乐</div>
+                        <div class="resource-links">
+                            <a href="https://anison.info/" target="_blank" class="resource-link music-link">Anison</a>
+                            <a href="https://vgmdb.net/" target="_blank" class="resource-link music-link">VGMdb</a>
+                            <a href="https://animethemes.moe/" target="_blank" class="resource-link music-link">AnimeThemes</a>
+                            <a href="https://www.anime-op.com/" target="_blank" class="resource-link music-link">Anime-OP</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-download"></i> 音乐下载</div>
+                        <div class="resource-links">
+                            <a href="https://freemusicarchive.org/" target="_blank" class="resource-link music-link">FreeMusicArchive</a>
+                            <a href="https://musopen.org/" target="_blank" class="resource-link music-link">Musopen</a>
+                            <a href="https://bandcamp.com/" target="_blank" class="resource-link music-link">Bandcamp</a>
+                            <a href="https://soundcloud.com/" target="_blank" class="resource-link music-link">SoundCloud</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 小说模块 -->
+            <section id="novel" class="module-card novel-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">小说专区 <span class="module-tag tag-novel">文学</span></h2>
+                        <p>各类小说阅读与下载资源</p>
+                    </div>
+                    <div class="module-icon novel-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+                <div class="module-content novel-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-book-reader"></i> 在线阅读</div>
+                        <div class="resource-links">
+                            <a href="https://www.qidian.com/" target="_blank" class="resource-link novel-link">起点中文网</a>
+                            <a href="https://www.zongheng.com/" target="_blank" class="resource-link novel-link">纵横中文网</a>
+                            <a href="https://www.17k.com/" target="_blank" class="resource-link novel-link">17K小说网</a>
+                            <a href="https://www.jjwxc.net/" target="_blank" class="resource-link novel-link">晋江文学城</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-asia"></i> 轻小说</div>
+                        <div class="resource-links">
+                            <a href="https://www.wenku8.net/" target="_blank" class="resource-link novel-link">轻小说文库</a>
+                            <a href="https://www.linovelib.com/" target="_blank" class="resource-link novel-link">哔哩轻小说</a>
+                            <a href="https://www.esjzone.cc/" target="_blank" class="resource-link novel-link">ESJZone</a>
+                            <a href="https://www.kakuyomu.jp/" target="_blank" class="resource-link novel-link">Kakuyomu</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-download"></i> 小说下载</div>
+                        <div class="resource-links">
+                            <a href="https://z-lib.org/" target="_blank" class="resource-link novel-link">Z-Library</a>
+                            <a href="https://www.gutenberg.org/" target="_blank" class="resource-link novel-link">古登堡计划</a>
+                            <a href="https://libgen.is/" target="_blank" class="resource-link novel-link">Library Genesis</a>
+                            <a href="https://www.pdfdrive.com/" target="_blank" class="resource-link novel-link">PDF Drive</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-user-edit"></i> 原创写作</div>
+                        <div class="resource-links">
+                            <a href="https://write.as/" target="_blank" class="resource-link novel-link">Write.as</a>
+                            <a href="https://www.wattpad.com/" target="_blank" class="resource-link novel-link">Wattpad</a>
+                            <a href="https://www.royalroad.com/" target="_blank" class="resource-link novel-link">Royal Road</a>
+                            <a href="https://www.fictionpress.com/" target="_blank" class="resource-link novel-link">FictionPress</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 影视直播模块 -->
+            <section id="video" class="module-card video-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">影视直播 <span class="module-tag tag-video">视频</span></h2>
+                        <p>短视频、直播与影视平台</p>
+                    </div>
+                    <div class="module-icon video-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                </div>
+                <div class="module-content video-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-film"></i> 短视频平台</div>
+                        <div class="resource-links">
+                            <a href="https://www.douyin.com/" target="_blank" class="resource-link video-link">抖音</a>
+                            <a href="https://www.kuaishou.com/" target="_blank" class="resource-link video-link">快手</a>
+                            <a href="https://www.ixigua.com/" target="_blank" class="resource-link video-link">西瓜视频</a>
+                            <a href="https://www.bilibili.com/" target="_blank" class="resource-link video-link">哔哩哔哩</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-tv"></i> 直播平台</div>
+                        <div class="resource-links">
+                            <a href="https://www.huya.com/" target="_blank" class="resource-link video-link">虎牙直播</a>
+                            <a href="https://www.douyu.com/" target="_blank" class="resource-link video-link">斗鱼直播</a>
+                            <a href="https://cc.163.com/" target="_blank" class="resource-link video-link">网易CC</a>
+                            <a href="https://www.twitch.tv/" target="_blank" class="resource-link video-link">Twitch</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-video"></i> 影视平台</div>
+                        <div class="resource-links">
+                            <a href="https://www.iqiyi.com/" target="_blank" class="resource-link video-link">爱奇艺</a>
+                            <a href="https://v.qq.com/" target="_blank" class="resource-link video-link">腾讯视频</a>
+                            <a href="https://www.youku.com/" target="_blank" class="resource-link video-link">优酷</a>
+                            <a href="https://www.mgtv.com/" target="_blank" class="resource-link video-link">芒果TV</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe"></i> 国际平台</div>
+                        <div class="resource-links">
+                            <a href="https://twitter.com/" target="_blank" class="resource-link video-link">Twitter</a>
+                            <a href="https://www.youtube.com/" target="_blank" class="resource-link video-link">YouTube</a>
+                            <a href="https://www.pixiv.net/" target="_blank" class="resource-link video-link">PIXIV</a>
+                            <a href="https://onlyfans.com/" target="_blank" class="resource-link video-link">onlyfans</a>
+                            <a href="https://www.facebook.com/" target="_blank" class="resource-link video-link">Facebook</a>
+                            <a href="https://www.instagram.com/" target="_blank" class="resource-link video-link">Instagram</a>
+                            <a href="https://www.netflix.com/" target="_blank" class="resource-link video-link">Netflix</a>
+                            <a href="https://www.disneyplus.com/" target="_blank" class="resource-link video-link">Disney+</a>
+                            <a href="https://www.hulu.com/" target="_blank" class="resource-link video-link">Hulu</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 网盘存储模块 -->
+            <section id="cloud" class="module-card cloud-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">网盘存储 <span class="module-tag tag-cloud">云存储</span></h2>
+                        <p>国内外主流与特色网盘服务</p>
+                    </div>
+                    <div class="module-icon cloud-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                </div>
+                <div class="module-content cloud-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-cloud-upload-alt"></i> 国内主流网盘</div>
+                        <div class="resource-links">
+                            <a href="https://pan.baidu.com/" target="_blank" class="resource-link cloud-link">百度网盘</a>
+                            <a href="https://www.aliyundrive.com/" target="_blank" class="resource-link cloud-link">阿里云盘</a>
+                            <a href="https://pan.quark.cn/" target="_blank" class="resource-link cloud-link">夸克网盘</a>
+                            <a href="https://pan.xunlei.com/" target="_blank" class="resource-link cloud-link">迅雷云盘</a>
+                            <a href="https://www.123pan.com/" target="_blank" class="resource-link cloud-link">123云盘</a>
+                            <a href="https://www.lanzou.com/" target="_blank" class="resource-link cloud-link">蓝奏云</a>
+                            <a href="https://115.com/" target="_blank" class="resource-link cloud-link">115网盘</a>
+                            <a href="https://cloud.189.cn/" target="_blank" class="resource-link cloud-link">天翼云盘</a>
+                            <a href="https://yun.139.com/" target="_blank" class="resource-link cloud-link">移动云盘</a>
+                            <a href="https://cloud.189.cn/" target="_blank" class="resource-link cloud-link">电信云盘</a>
+                            <a href="https://www.weiyun.com/" target="_blank" class="resource-link cloud-link">腾讯微云</a>
+                            <a href="https://caiyun.feixin.10086.cn/" target="_blank" class="resource-link cloud-link">和彩云</a>   
+                            <a href="https://drive.uc.cn/" target="_blank" class="resource-link cloud-link">UC网盘</a>
+                            <a href="https://yunpan.360.cn/" target="_blank" class="resource-link cloud-link">360安全云盘</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-briefcase"></i> 企业网盘</div>
+                        <div class="resource-links">
+                            <a href="https://www.jianguoyun.com/" target="_blank" class="resource-link cloud-link">坚果云</a>
+                            <a href="https://www.fangcloud.com/" target="_blank" class="resource-link cloud-link">亿方云</a>
+                            <a href="https://box.lenovo.com/" target="_blank" class="resource-link cloud-link">联想企业网盘</a>
+                            <a href="https://www.yunque365.com/" target="_blank" class="resource-link cloud-link">燕麦云</a>
+                            <a href="https://www.gokuai.com/" target="_blank" class="resource-link cloud-link">够快云库</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-americas"></i> 国际网盘</div>
+                        <div class="resource-links">
+                            <a href="https://mypikpak.com/zh-CN" target="_blank" class="resource-link cloud-link">PikPak</a>
+                            <a href="https://drive.google.com/" target="_blank" class="resource-link cloud-link">Google Drive</a>
+                            <a href="https://www.dropbox.com/" target="_blank" class="resource-link cloud-link">Dropbox</a>
+                            <a href="https://onedrive.live.com/" target="_blank" class="resource-link cloud-link">OneDrive</a>
+                            <a href="https://www.icloud.com/" target="_blank" class="resource-link cloud-link">iCloud Drive</a>
+                            <a href="https://mega.nz/" target="_blank" class="resource-link cloud-link">MEGA</a>
+                            <a href="https://www.box.com/" target="_blank" class="resource-link cloud-link">Box</a>
+                            <a href="https://www.pcloud.com/" target="_blank" class="resource-link cloud-link">pCloud</a>
+                            <a href="https://www.sync.com/" target="_blank" class="resource-link cloud-link">Sync.com</a>
+                            <a href="https://www.mediafire.com/" target="_blank" class="resource-link cloud-link">MediaFire</a>
+                            <a href="https://www.terabox.com/" target="_blank" class="resource-link cloud-link">TeraBox</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-star"></i> 特色网盘</div>
+                        <div class="resource-links">
+                            <a href="https://github.com/" target="_blank" class="resource-link cloud-link">GitHub</a>
+                            <a href="https://www.flickr.com/" target="_blank" class="resource-link cloud-link">Flickr</a>
+                            <a href="https://photos.google.com/" target="_blank" class="resource-link cloud-link">Google Photos</a>
+                            <a href="https://www.amazon.com/drive" target="_blank" class="resource-link cloud-link">Amazon Drive</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 服务器模块 -->
+            <section id="server" class="module-card server-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">服务器 <span class="module-tag tag-server">云计算</span></h2>
+                        <p>国内外云服务器与主机服务</p>
+                    </div>
+                    <div class="module-icon server-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                </div>
+                <div class="module-content server-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-cloud"></i> 国内云服务器</div>
+                        <div class="resource-links">
+                            <a href="https://www.tencentcloud.com/" target="_blank" class="resource-link server-link">腾讯云</a>
+                            <a href="https://www.aliyun.com/" target="_blank" class="resource-link server-link">阿里云</a>
+                            <a href="https://www.volcengine.com/" target="_blank" class="resource-link server-link">火山引擎</a>
+                            <a href="https://www.huaweicloud.com/" target="_blank" class="resource-link server-link">华为云</a>
+                            <a href="https://www.jdcloud.com/" target="_blank" class="resource-link server-link">京东云</a>
+                            <a href="https://cloud.baidu.com/" target="_blank" class="resource-link server-link">百度云</a>
+                            <a href="https://cloud.10086.cn/" target="_blank" class="resource-link server-link">移动云</a>
+                            <a href="https://www.ctyun.cn/" target="_blank" class="resource-link server-link">天翼云</a>
+                            <a href="https://www.zstack.io/" target="_blank" class="resource-link server-link">ZStack</a>
+                            <a href="https://www.ucloud.cn/" target="_blank" class="resource-link server-link">UCloud</a>
+                            <a href="https://www.qcloud.com/" target="_blank" class="resource-link server-link">腾讯云国际</a>
+                            <a href="https://www.21vianet.com/" target="_blank" class="resource-link server-link">世纪互联</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-americas"></i> 国际云服务器</div>
+                        <div class="resource-links">
+                            <a href="https://aws.amazon.com/" target="_blank" class="resource-link server-link">AWS</a>
+                            <a href="https://cloud.google.com/" target="_blank" class="resource-link server-link">Google Cloud</a>
+                            <a href="https://azure.microsoft.com/" target="_blank" class="resource-link server-link">Microsoft Azure</a>
+                            <a href="https://www.digitalocean.com/" target="_blank" class="resource-link server-link">DigitalOcean</a>
+                            <a href="https://www.vultr.com/" target="_blank" class="resource-link server-link">Vultr</a>
+                            <a href="https://www.linode.com/" target="_blank" class="resource-link server-link">Linode</a>
+                            <a href="https://www.ovhcloud.com/" target="_blank" class="resource-link server-link">OVHcloud</a>
+                            <a href="https://www.ibm.com/cloud" target="_blank" class="resource-link server-link">IBM Cloud</a>
+                            <a href="https://www.oracle.com/cloud/" target="_blank" class="resource-link server-link">Oracle Cloud</a>
+                            <a href="https://www.alibabacloud.com/" target="_blank" class="resource-link server-link">阿里云国际</a>
+                            <a href="https://www.rackspace.com/" target="_blank" class="resource-link server-link">Rackspace</a>
+                            <a href="https://www.hetzner.com/" target="_blank" class="resource-link server-link">Hetzner</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-hdd"></i> VPS与独立服务器</div>
+                        <div class="resource-links">
+                            <a href="https://www.bluehost.com/" target="_blank" class="resource-link server-link">Bluehost</a>
+                            <a href="https://www.hostgator.com/" target="_blank" class="resource-link server-link">HostGator</a>
+                            <a href="https://www.siteground.com/" target="_blank" class="resource-link server-link">SiteGround</a>
+                            <a href="https://www.inmotionhosting.com/" target="_blank" class="resource-link server-link">InMotion Hosting</a>
+                            <a href="https://www.a2hosting.com/" target="_blank" class="resource-link server-link">A2 Hosting</a>
+                            <a href="https://www.kamatera.com/" target="_blank" class="resource-link server-link">Kamatera</a>
+                            <a href="https://www.contabo.com/" target="_blank" class="resource-link server-link">Contabo</a>
+                            <a href="https://www.ionos.com/" target="_blank" class="resource-link server-link">IONOS</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-cogs"></i> 容器与Serverless</div>
+                        <div class="resource-links">
+                            <a href="https://www.docker.com/" target="_blank" class="resource-link server-link">Docker</a>
+                            <a href="https://kubernetes.io/" target="_blank" class="resource-link server-link">Kubernetes</a>
+                            <a href="https://vercel.com/" target="_blank" class="resource-link server-link">Vercel</a>
+                            <a href="https://www.netlify.com/" target="_blank" class="resource-link server-link">Netlify</a>
+                            <a href="https://cloudflare.com/" target="_blank" class="resource-link server-link">Cloudflare</a>
+                            <a href="https://www.heroku.com/" target="_blank" class="resource-link server-link">Heroku</a>
+                            <a href="https://aws.amazon.com/lambda/" target="_blank" class="resource-link server-link">AWS Lambda</a>
+                            <a href="https://cloud.google.com/functions" target="_blank" class="resource-link server-link">Google Cloud Functions</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 邮箱模块 -->
+            <section id="email" class="module-card email-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">邮箱服务 <span class="module-tag tag-email">邮件</span></h2>
+                        <p>国内外主流与特色邮箱服务</p>
+                    </div>
+                    <div class="module-icon email-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="module-content email-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-envelope-open-text"></i> 国内邮箱服务</div>
+                        <div class="resource-links">
+                            <a href="https://mail.qq.com/" target="_blank" class="resource-link email-link">QQ邮箱</a>
+                            <a href="https://mail.163.com/" target="_blank" class="resource-link email-link">163网易邮箱</a>
+                            <a href="https://mail.126.com/" target="_blank" class="resource-link email-link">126网易邮箱</a>
+                            <a href="https://mail.sina.com.cn/" target="_blank" class="resource-link email-link">新浪邮箱</a>
+                            <a href="https://mail.aliyun.com/" target="_blank" class="resource-link email-link">阿里云邮箱</a>
+                            <a href="https://mail.10086.cn/" target="_blank" class="resource-link email-link">移动139邮箱</a>
+                            <a href="https://mail.189.cn/" target="_blank" class="resource-link email-link">电信189邮箱</a>
+                            <a href="https://mail.sohu.com/" target="_blank" class="resource-link email-link">搜狐邮箱</a>
+                            <a href="https://mail.tom.com/" target="_blank" class="resource-link email-link">TOM邮箱</a>
+                            <a href="https://www.21cn.com/" target="_blank" class="resource-link email-link">21CN邮箱</a>
+                            <a href="https://mail.yahoo.com.cn/" target="_blank" class="resource-link email-link">雅虎中国邮箱</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-americas"></i> 国际邮箱服务</div>
+                        <div class="resource-links">
+                            <a href="https://mail.google.com/" target="_blank" class="resource-link email-link">Gmail</a>
+                            <a href="https://outlook.live.com/" target="_blank" class="resource-link email-link">Outlook</a>
+                            <a href="https://mail.yahoo.com/" target="_blank" class="resource-link email-link">Yahoo Mail</a>
+                            <a href="https://mail.proton.me/" target="_blank" class="resource-link email-link">ProtonMail</a>
+                            <a href="https://mail.aol.com/" target="_blank" class="resource-link email-link">AOL Mail</a>
+                            <a href="https://mail.zoho.com/" target="_blank" class="resource-link email-link">Zoho Mail</a>
+                            <a href="https://mail.yandex.com/" target="_blank" class="resource-link email-link">Yandex Mail</a>
+                            <a href="https://www.gmx.com/" target="_blank" class="resource-link email-link">GMX Mail</a>
+                            <a href="https://www.mail.com/" target="_blank" class="resource-link email-link">Mail.com</a>
+                            <a href="https://www.iCloud.com/mail" target="_blank" class="resource-link email-link">iCloud Mail</a>
+                            <a href="https://tutanota.com/" target="_blank" class="resource-link email-link">Tutanota</a>
+                            <a href="https://www.fastmail.com/" target="_blank" class="resource-link email-link">Fastmail</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-briefcase"></i> 企业邮箱服务</div>
+                        <div class="resource-links">
+                            <a href="https://workspace.google.com/" target="_blank" class="resource-link email-link">Google Workspace</a>
+                            <a href="https://www.microsoft.com/en-us/microsoft-365/exchange/email" target="_blank" class="resource-link email-link">Microsoft 365</a>
+                            <a href="https://www.zoho.com/mail/" target="_blank" class="resource-link email-link">Zoho Workplace</a>
+                            <a href="https://www.aliyun.com/product/mail" target="_blank" class="resource-link email-link">阿里企业邮箱</a>
+                            <a href="https://qiye.163.com/" target="_blank" class="resource-link email-link">网易企业邮箱</a>
+                            <a href="https://exmail.qq.com/" target="_blank" class="resource-link email-link">腾讯企业邮箱</a>
+                            <a href="https://www.263.net/" target="_blank" class="resource-link email-link">263企业邮箱</a>
+                            <a href="https://www.sina.net/" target="_blank" class="resource-link email-link">新浪企业邮箱</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-shield-alt"></i> 安全加密邮箱</div>
+                        <div class="resource-links">
+                            <a href="https://protonmail.com/" target="_blank" class="resource-link email-link">ProtonMail</a>
+                            <a href="https://tutanota.com/" target="_blank" class="resource-link email-link">Tutanota</a>
+                            <a href="https://www.hushmail.com/" target="_blank" class="resource-link email-link">Hushmail</a>
+                            <a href="https://countermail.com/" target="_blank" class="resource-link email-link">CounterMail</a>
+                            <a href="https://mailfence.com/" target="_blank" class="resource-link email-link">Mailfence</a>
+                            <a href="https://www.startmail.com/" target="_blank" class="resource-link email-link">StartMail</a>
+                            <a href="https://posteo.de/" target="_blank" class="resource-link email-link">Posteo</a>
+                            <a href="https://mailbox.org/" target="_blank" class="resource-link email-link">Mailbox.org</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- AI工具模块 (新增) -->
+            <section id="ai" class="module-card ai-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">AI工具 <span class="module-tag tag-ai">人工智能</span></h2>
+                        <p>国内外主流AI助手与创作工具</p>
+                    </div>
+                    <div class="module-icon ai-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                </div>
+                <div class="module-content ai-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-brain"></i> 国产AI助手</div>
+                        <div class="resource-links">
+                            <a href="https://deepseek.com" target="_blank" class="resource-link ai-link">DeepSeek</a>
+                            <a href="https://tongyi.aliyun.com" target="_blank" class="resource-link ai-link">通义千问</a>
+                            <a href="https://yiyan.baidu.com" target="_blank" class="resource-link ai-link">文心一言</a>
+                            <a href="https://chatglm.cn" target="_blank" class="resource-link ai-link">智谱清言</a>
+                            <a href="https://kimi.moonshot.cn" target="_blank" class="resource-link ai-link">Kimi Chat</a>
+                            <a href="https://xinghuo.xfyun.cn" target="_blank" class="resource-link ai-link">讯飞星火</a>
+                            <a href="https://qianfan.baidu.com" target="_blank" class="resource-link ai-link">百度千帆</a>
+                            <a href="https://www.moonshot.cn" target="_blank" class="resource-link ai-link">月之暗面</a>
+                            <a href="https://www.zhipuai.cn" target="_blank" class="resource-link ai-link">智谱AI</a>
+                            <a href="https://www.minimaxi.com" target="_blank" class="resource-link ai-link">Minimax</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-americas"></i> 国际AI助手</div>
+                        <div class="resource-links">
+                            <a href="https://chat.openai.com" target="_blank" class="resource-link ai-link">ChatGPT</a>
+                            <a href="https://claude.ai" target="_blank" class="resource-link ai-link">Claude</a>
+                            <a href="https://gemini.google.com" target="_blank" class="resource-link ai-link">Gemini</a>
+                            <a href="https://copilot.microsoft.com" target="_blank" class="resource-link ai-link">Copilot</a>
+                            <a href="https://www.midjourney.com" target="_blank" class="resource-link ai-link">Midjourney</a>
+                            <a href="https://www.perplexity.ai" target="_blank" class="resource-link ai-link">Perplexity</a>
+                            <a href="https://www.anthropic.com" target="_blank" class="resource-link ai-link">Anthropic</a>
+                            <a href="https://www.bard.google.com" target="_blank" class="resource-link ai-link">Google Bard</a>
+                            <a href="https://you.com" target="_blank" class="resource-link ai-link">You.com</a>
+                            <a href="https://www.phind.com" target="_blank" class="resource-link ai-link">Phind</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-paint-brush"></i> AI图像创作</div>
+                        <div class="resource-links">
+                            <a href="https://www.midjourney.com" target="_blank" class="resource-link ai-link">Midjourney</a>
+                            <a href="https://openai.com/dall-e-2" target="_blank" class="resource-link ai-link">DALL·E 2</a>
+                            <a href="https://stability.ai" target="_blank" class="resource-link ai-link">Stable Diffusion</a>
+                            <a href="https://www.adobe.com/sensei/generative-ai/firefly.html" target="_blank" class="resource-link ai-link">Adobe Firefly</a>
+                            <a href="https://leonardo.ai" target="_blank" class="resource-link ai-link">Leonardo.ai</a>
+                            <a href="https://www.bing.com/images/create" target="_blank" class="resource-link ai-link">Bing Image Creator</a>
+                            <a href="https://www.craiyon.com" target="_blank" class="resource-link ai-link">Craiyon</a>
+                            <a href="https://www.getimg.ai" target="_blank" class="resource-link ai-link">Getimg.ai</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-code"></i> AI编程开发</div>
+                        <div class="resource-links">
+                            <a href="https://github.com/features/copilot" target="_blank" class="resource-link ai-link">GitHub Copilot</a>
+                            <a href="https://www.amazon.com/codewhisperer" target="_blank" class="resource-link ai-link">CodeWhisperer</a>
+                            <a href="https://www.tabnine.com" target="_blank" class="resource-link ai-link">Tabnine</a>
+                            <a href="https://www.replit.com" target="_blank" class="resource-link ai-link">Replit</a>
+                            <a href="https://cursor.sh" target="_blank" class="resource-link ai-link">Cursor</a>
+                            <a href="https://www.codium.ai" target="_blank" class="resource-link ai-link">CodiumAI</a>
+                            <a href="https://www.sourceshift.ai" target="_blank" class="resource-link ai-link">SourceShift</a>
+                            <a href="https://www.deepcode.ai" target="_blank" class="resource-link ai-link">DeepCode</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 搜索引擎模块 (新增) -->
+            <section id="search" class="module-card search-card fade-in">
+                <div class="module-header">
+                    <div>
+                        <h2 class="module-title">搜索引擎 <span class="module-tag tag-search">搜索</span></h2>
+                        <p>国内外主流与特色搜索引擎</p>
+                    </div>
+                    <div class="module-icon search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="module-content search-links">
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-search"></i> 综合搜索引擎</div>
+                        <div class="resource-links">
+                            <a href="https://www.google.com" target="_blank" class="resource-link search-link">Google</a>
+                            <a href="https://www.bing.com" target="_blank" class="resource-link search-link">Bing</a>
+                            <a href="https://www.baidu.com" target="_blank" class="resource-link search-link">百度</a>
+                            <a href="https://duckduckgo.com" target="_blank" class="resource-link search-link">DuckDuckGo</a>
+                            <a href="https://www.yahoo.com" target="_blank" class="resource-link search-link">Yahoo</a>
+                            <a href="https://www.yandex.com" target="_blank" class="resource-link search-link">Yandex</a>
+                            <a href="https://www.ecosia.org" target="_blank" class="resource-link search-link">Ecosia</a>
+                            <a href="https://www.startpage.com" target="_blank" class="resource-link search-link">Startpage</a>
+                            <a href="https://searx.info" target="_blank" class="resource-link search-link">SearX</a>
+                            <a href="https://www.mojeek.com" target="_blank" class="resource-link search-link">Mojeek</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-globe-asia"></i> 国内搜索引擎</div>
+                        <div class="resource-links">
+                            <a href="https://www.baidu.com" target="_blank" class="resource-link search-link">百度</a>
+                            <a href="https://www.sogou.com" target="_blank" class="resource-link search-link">搜狗</a>
+                            <a href="https://www.so.com" target="_blank" class="resource-link search-link">360搜索</a>
+                            <a href="https://www.bing.com" target="_blank" class="resource-link search-link">必应中国</a>
+                            <a href="https://mijisou.com" target="_blank" class="resource-link search-link">秘迹搜索</a>
+                            <a href="https://www.chinaso.com" target="_blank" class="resource-link search-link">中国搜索</a>
+                            <a href="https://www.shenma.com" target="_blank" class="resource-link search-link">神马搜索</a>
+                            <a href="https://www.qwant.com" target="_blank" class="resource-link search-link">Qwant</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-code"></i> 开发者搜索引擎</div>
+                        <div class="resource-links">
+                            <a href="https://stackoverflow.com" target="_blank" class="resource-link search-link">Stack Overflow</a>
+                            <a href="https://github.com" target="_blank" class="resource-link search-link">GitHub</a>
+                            <a href="https://devdocs.io" target="_blank" class="resource-link search-link">DevDocs</a>
+                            <a href="https://developer.mozilla.org" target="_blank" class="resource-link search-link">MDN Web Docs</a>
+                            <a href="https://www.npmjs.com" target="_blank" class="resource-link search-link">npm</a>
+                            <a href="https://pypi.org" target="_blank" class="resource-link search-link">PyPI</a>
+                            <a href="https://crates.io" target="_blank" class="resource-link search-link">Crates.io</a>
+                            <a href="https://pub.dev" target="_blank" class="resource-link search-link">Pub.dev</a>
+                            <a href="https://search.maven.org" target="_blank" class="resource-link search-link">Maven Central</a>
+                        </div>
+                    </div>
+                    <div class="sub-module">
+                        <div class="sub-module-title"><i class="fas fa-shopping-cart"></i> 购物搜索引擎</div>
+                        <div class="resource-links">
+                            <a href="https://www.amazon.com" target="_blank" class="resource-link search-link">Amazon</a>
+                            <a href="https://www.taobao.com" target="_blank" class="resource-link search-link">淘宝</a>
+                            <a href="https://www.jd.com" target="_blank" class="resource-link search-link">京东</a>
+                            <a href="https://www.pinduoduo.com" target="_blank" class="resource-link search-link">拼多多</a>
+                            <a href="https://www.ebay.com" target="_blank" class="resource-link search-link">eBay</a>
+                            <a href="https://www.aliexpress.com" target="_blank" class="resource-link search-link">AliExpress</a>
+                            <a href="https://www.walmart.com" target="_blank" class="resource-link search-link">Walmart</a>
+                            <a href="https://www.bestbuy.com" target="_blank" class="resource-link search-link">Best Buy</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="container">
+        <p id="statsInfo"></p>
+        <p>© 2023-2026 全模块资源导航 | 本网站仅为资源导航，所有跳转链接指向第三方网站</p>
+        <p>建议使用Chrome、Firefox等现代浏览器访问以获得最佳体验</p>
+        <p style="margin-top: 15px; font-size: 0.85rem; color: #94a3b8;">
+            提示：本网站为静态页面，所有资源链接均为示例，请遵守相关网站使用条款
+        </p>
+        <p style="margin-top: 5px; font-size: 0.8rem; color: #64748b;">
+            生成于2026年1月11日 | 最后更新：2026年1月11日
+        </p>
+    </footer>
+    
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- 通知提示 -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">链接已复制到剪贴板</span>
+    </div>
+    
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 隐藏加载动画
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 500);
+            
+            // 创建粒子背景
+            createParticles();
+            
+            // 滚动动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.05,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // 搜索功能
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const allLinks = document.querySelectorAll('.resource-link');
+                const allModules = document.querySelectorAll('.module-card');
+                const allSubModules = document.querySelectorAll('.sub-module');
+                
+                if (searchTerm === '') {
+                    // 显示所有内容
+                    allLinks.forEach(link => {
+                        link.style.display = 'inline-block';
+                        link.parentElement.parentElement.style.display = 'block';
+                    });
+                    allModules.forEach(module => {
+                        module.style.display = 'flex';
+                    });
+                    allSubModules.forEach(module => {
+                        module.style.display = 'block';
+                    });
+                    return;
+                }
+                
+                // 隐藏所有模块，然后逐个检查
+                allModules.forEach(module => {
+                    module.style.display = 'none';
+                });
+                
+                // 在每个模块内搜索
+                allModules.forEach(module => {
+                    const moduleLinks = module.querySelectorAll('.resource-link');
+                    let moduleHasMatch = false;
+                    
+                    moduleLinks.forEach(link => {
+                        const linkText = link.textContent.toLowerCase();
+                        const linkTitle = link.getAttribute('title') ? link.getAttribute('title').toLowerCase() : '';
+                        const linkHref = link.getAttribute('href') ? link.getAttribute('href').toLowerCase() : '';
+                        
+                        if (linkText.includes(searchTerm) || linkTitle.includes(searchTerm) || linkHref.includes(searchTerm)) {
+                            link.style.display = 'inline-block';
+                            moduleHasMatch = true;
+                            
+                            // 显示父级子模块
+                            let parentSubModule = link.closest('.sub-module');
+                            if (parentSubModule) {
+                                parentSubModule.style.display = 'block';
+                            }
+                        } else {
+                            link.style.display = 'none';
+                        }
+                    });
+                    
+                    // 如果模块有匹配项，显示模块
+                    if (moduleHasMatch) {
+                        module.style.display = 'flex';
+                        
+                        // 隐藏没有匹配项的子模块
+                        const subModules = module.querySelectorAll('.sub-module');
+                        subModules.forEach(subModule => {
+                            const subModuleLinks = subModule.querySelectorAll('.resource-link');
+                            const hasVisibleLinks = Array.from(subModuleLinks).some(link => link.style.display !== 'none');
+                            subModule.style.display = hasVisibleLinks ? 'block' : 'none';
+                        });
+                    }
+                });
+            });
+            
+            // 平滑滚动到模块
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 40,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // 回到顶部按钮
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 500) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 为所有资源链接添加点击效果和统计
+            document.querySelectorAll('.resource-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const siteName = this.textContent;
+                    console.log(`跳转到: ${siteName}`);
+                    
+                    // 添加点击效果
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+            
+            // 模块卡片点击效果
+            document.querySelectorAll('.module-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.resource-link') && !e.target.closest('a')) {
+                        const header = this.querySelector('.module-header');
+                        header.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                        setTimeout(() => {
+                            header.style.backgroundColor = '';
+                        }, 300);
+                    }
+                });
+            });
+            
+            // 添加模块计数显示
+            const moduleCount = document.querySelectorAll('.module-card').length;
+            const header = document.querySelector('header h1');
+            if (header) {
+                const countSpan = document.createElement('span');
+                countSpan.textContent = ` ${moduleCount}大模块`;
+                countSpan.style.fontSize = '1.4rem';
+                countSpan.style.color = '#94a3b8';
+                countSpan.style.marginLeft = '15px';
+                countSpan.style.fontWeight = '400';
+                countSpan.style.letterSpacing = '0.5px';
+                header.appendChild(countSpan);
+            }
+            
+            // 添加链接总数统计
+            const totalLinks = document.querySelectorAll('.resource-link').length;
+            const statsInfo = document.getElementById('statsInfo');
+            if (statsInfo) {
+                statsInfo.innerHTML = `本站收录 <strong>${moduleCount}</strong> 个资源模块，共计 <strong>${totalLinks}</strong> 个资源站点`;
+                statsInfo.style.marginTop = '15px';
+                statsInfo.style.color = '#94a3b8';
+                statsInfo.style.fontSize = '0.95rem';
+            }
+            
+            // 添加键盘快捷键支持
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+F 或 Cmd+F 聚焦搜索框
+                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                
+                // ESC 清空搜索框
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input'));
+                    searchInput.blur();
+                }
+                
+                // 数字键1-0跳转到对应模块
+                if (e.key >= '1' && e.key <= '0') {
+                    const index = parseInt(e.key === '0' ? 10 : e.key) - 1;
+                    const modules = ['anime', 'comic', 'music', 'novel', 'video', 'cloud', 'server', 'email', 'ai', 'search'];
+                    if (index < modules.length) {
+                        const targetModule = document.getElementById(modules[index]);
+                        if (targetModule) {
+                            window.scrollTo({
+                                top: targetModule.offsetTop - 40,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                }
+            });
+            
+            // 显示通知
+            function showNotification(message) {
+                const notification = document.getElementById('notification');
+                const notificationText = document.getElementById('notificationText');
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // 添加复制链接功能（右键菜单）
+            document.addEventListener('contextmenu', function(e) {
+                if (e.target.classList.contains('resource-link')) {
+                    e.preventDefault();
+                    const link = e.target.href;
+                    navigator.clipboard.writeText(link).then(() => {
+                        showNotification('链接已复制到剪贴板');
+                    }).catch(err => {
+                        console.error('复制失败:', err);
+                        showNotification('复制失败，请手动复制链接');
+                    });
+                }
+            });
+            
+            // 初始化显示模块数量
+            showNotification(`欢迎使用全模块资源导航，共收录 ${moduleCount} 个模块，${totalLinks} 个资源站点`);
+            
+            // 添加模块切换动画
+            const moduleCards = document.querySelectorAll('.module-card');
+            moduleCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.05}s`;
+            });
+            
+            // 添加搜索框提示
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+            
+            // 初始化收藏站点轮播
+            initCarousel();
+        });
+        
+        // 创建粒子背景
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = 'rgba(255, 255, 255, 0.1)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // 动画
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // 添加浮动动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0%, 100% { transform: translateY(0) translateX(0); }
+                    25% { transform: translateY(-20px) translateX(10px); }
+                    50% { transform: translateY(-10px) translateX(-10px); }
+                    75% { transform: translateY(-30px) translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // 收藏站点轮播功能
+        function initCarousel() {
+            const favorites = [
+                {
+                    title: 'DeepSeek',
+                    description: '国产AI助手，支持多种任务',
+                    url: 'https://deepseek.com',
+                    icon: 'fas fa-robot',
+                    colorClass: 'ai-icon'
+                },
+                {
+                    title: 'Google',
+                    description: '全球领先的搜索引擎',
+                    url: 'https://www.google.com',
+                    icon: 'fas fa-search',
+                    colorClass: 'search-icon'
+                },
+                {
+                    title: '哔哩哔哩动漫',
+                    description: '正版高清动漫资源',
+                    url: 'https://www.bilibili.com',
+                    icon: 'fas fa-play-circle',
+                    colorClass: 'anime-icon'
+                },
+                {
+                    title: '百度网盘',
+                    description: '国内主流云存储服务',
+                    url: 'https://pan.baidu.com',
+                    icon: 'fas fa-cloud',
+                    colorClass: 'cloud-icon'
+                },
+                {
+                    title: '阿里云',
+                    description: '国内领先的云计算服务商',
+                    url: 'https://www.aliyun.com',
+                    icon: 'fas fa-server',
+                    colorClass: 'server-icon'
+                },
+                {
+                    title: 'ChatGPT',
+                    description: 'OpenAI AI助手',
+                    url: 'https://chat.openai.com',
+                    icon: 'fas fa-robot',
+                    colorClass: 'ai-icon'
+                },
+                {
+                    title: 'Gmail',
+                    description: 'Google提供的免费邮箱服务',
+                    url: 'https://mail.google.com',
+                    icon: 'fas fa-envelope',
+                    colorClass: 'email-icon'
+                },
+                {
+                    title: 'Bing',
+                    description: '微软搜索引擎',
+                    url: 'https://www.bing.com',
+                    icon: 'fas fa-search',
+                    colorClass: 'search-icon'
+                },
+                {
+                    title: '通义千问',
+                    description: '阿里云AI助手',
+                    url: 'https://tongyi.aliyun.com',
+                    icon: 'fas fa-robot',
+                    colorClass: 'ai-icon'
+                }
+            ];
+            
+            const carouselTrack = document.getElementById('carouselTrack');
+            const carouselNav = document.getElementById('carouselNav');
+            
+            // 计算每屏显示的卡片数量
+            const getCardsPerScreen = () => {
+                if (window.innerWidth < 768) return 1;
+                if (window.innerWidth < 1200) return 2;
+                return 3;
+            };
+            
+            let cardsPerScreen = getCardsPerScreen();
+            let currentIndex = 0;
+            let totalSlides = Math.ceil(favorites.length / cardsPerScreen);
+            
+            // 生成轮播卡片
+            favorites.forEach((favorite, index) => {
+                const favoriteItem = document.createElement('div');
+                favoriteItem.className = 'favorite-item';
+                
+                const favoriteCard = document.createElement('a');
+                favoriteCard.className = 'favorite-card';
+                favoriteCard.href = favorite.url;
+                favoriteCard.target = '_blank';
+                
+                favoriteCard.innerHTML = `
+                    <div class="favorite-icon ${favorite.colorClass}">
+                        <i class="${favorite.icon}"></i>
+                    </div>
+                    <div class="favorite-info">
+                        <h3>${favorite.title}</h3>
+                        <p>${favorite.description}</p>
+                    </div>
+                `;
+                
+                favoriteItem.appendChild(favoriteCard);
+                carouselTrack.appendChild(favoriteItem);
+            });
+            
+            // 生成轮播指示点
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.dataset.index = i;
+                
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                });
+                
+                carouselNav.appendChild(dot);
+            }
+            
+            // 更新轮播位置
+            function updateCarousel() {
+                const trackWidth = carouselTrack.clientWidth;
+                const itemWidth = trackWidth / cardsPerScreen;
+                const translateX = -currentIndex * itemWidth * cardsPerScreen;
+                
+                carouselTrack.style.transform = `translateX(${translateX}px)`;
+                
+                // 更新指示点
+                document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // 跳转到指定幻灯片
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            // 自动轮播
+            let autoSlideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }, 4000);
+            
+            // 响应窗口大小变化
+            window.addEventListener('resize', () => {
+                cardsPerScreen = getCardsPerScreen();
+                totalSlides = Math.ceil(favorites.length / cardsPerScreen);
+                
+                // 更新指示点
+                carouselNav.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'carousel-dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.dataset.index = i;
+                    
+                    dot.addEventListener('click', () => {
+                        goToSlide(i);
+                    });
+                    
+                    carouselNav.appendChild(dot);
+                }
+                
+                // 确保当前索引有效
+                if (currentIndex >= totalSlides) {
+                    currentIndex = totalSlides - 1;
+                }
+                
+                updateCarousel();
+            });
+            
+            // 初始更新
+            updateCarousel();
+            
+            // 鼠标悬停时暂停自动轮播
+            carouselTrack.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+            
+            carouselTrack.addEventListener('mouseleave', () => {
+                autoSlideInterval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateCarousel();
+                }, 4000);
+            });
+        }
+    </script>
+</body>
+</html>
