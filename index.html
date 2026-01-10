@@ -2234,9 +2234,6 @@
             
             // 初始化轮播图
             initCarousel();
-            
-            // 初始化其他功能
-            initOtherFeatures();
         });
         
         // ==================== 搜索功能 ====================
@@ -2515,8 +2512,10 @@
                     batch.forEach(el => observer.observe(el));
                 }, i * 50);
             }
-            
-            // 回到顶部功能
+        }
+        
+        // ==================== 回到顶部功能 ====================
+        function initBackToTop() {
             const backToTop = document.getElementById('backToTop');
             let scrollTimeoutId;
             
